@@ -13,6 +13,12 @@ export default function SmoothScroll({
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Prevent browser from restoring scroll position on load
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+
     let smoother: ScrollSmoother | null = null;
     try {
       gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
