@@ -357,6 +357,7 @@ export default function Artists() {
             }}
           >
             {ALL_ARTISTS.map((a) => {
+
               const isEven = a.no % 2 === 0;
 
               const imgBlock = (
@@ -490,6 +491,53 @@ export default function Artists() {
             })}
           </div>
         </div>
+
+        {/* Mobile: sound waves + description + learn more — below slider */}
+        {isMobile && (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "5vw",
+              padding: "8vw 5.128vw",
+              textAlign: "center",
+            }}
+          >
+            <img
+              src="/images/Artists/soundWaves.svg"
+              alt=""
+              style={{ height: "7vw", width: "8vw", objectFit: "cover" }}
+            />
+            <p
+              style={{
+                fontSize: "3.59vw",
+                opacity: 0.6,
+                lineHeight: "148%",
+                margin: 0,
+              }}
+            >
+              Empowering artists, captivating global audiences, and redefining
+              the future of musicas a dynamic record label
+            </p>
+            <a
+              href="/artists"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "2vw",
+                fontSize: "3.59vw",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              <span style={{ borderBottom: "1px solid currentColor" }}>
+                Learn more
+              </span>
+              <span>→</span>
+            </a>
+          </div>
+        )}
       </div>
     </section>
   );

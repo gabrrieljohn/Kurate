@@ -70,7 +70,7 @@ export default function Footer() {
               src="/images/Preloader/logo-no-trademark.svg"
               alt="Kurate"
               className="reveal"
-              style={{ height: isMobile ? "5vh" : "5.622vw", minHeight: isMobile ? "5vh" : undefined, width: isMobile ? "38.462vw" : "100%", minWidth: isMobile ? "38.462vw" : undefined, ...d(0) }}
+              style={{ height: isMobile ? "5vh" : "5.622vw", minHeight: isMobile ? "5vh" : undefined, width: isMobile ? "56vw" : "100%", minWidth: isMobile ? "56vw" : undefined, ...d(0) }}
             />
             <div
               className="reveal"
