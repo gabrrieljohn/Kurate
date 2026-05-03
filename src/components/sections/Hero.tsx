@@ -243,7 +243,7 @@ export default function Hero() {
         style={{
           position: "absolute",
           right: 0,
-          top: "15.4028vh",
+          top: isMobile ? 0 : "15.4028vh",
           zIndex: 3,
           userSelect: "none",
         }}
@@ -272,8 +272,8 @@ export default function Hero() {
           </div>
           <div
             style={{
-              width: isMobile ? "26.41vw" : "16.204vw",
-              height: isMobile ? "36.41vw" : "20vh",
+              width: isMobile ? "36.41vw" : "16.204vw",
+              height: isMobile ? "26.41vw" : "20vh",
               borderRadius: "0.4vw",
               overflow: "hidden",
               position: "relative",
