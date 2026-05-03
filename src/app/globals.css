@@ -202,7 +202,9 @@ div.animated .brand-text > div {
   .section-span { font-size: 5.128vw; }
 }
 
-html, body, * { cursor: none !important; }
+@media (min-width: 769px) {
+  html, body, * { cursor: none !important; }
+}
 
 @keyframes spin {
   from { transform: rotate(0deg); }

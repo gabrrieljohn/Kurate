@@ -98,11 +98,13 @@ export default function Hero() {
         height: "100vh",
       }}
     >
-      {/* Full-section canvas — covers entire hero so displaced text can bleed outside the logo box */}
-      <HeroLogoCanvas
-        logoSrc="/images/Preloader/logo.svg"
-        logoAreaRef={logoInnerRef}
-      />
+      {/* Full-section canvas — desktop only (original doesn't use canvas on mobile) */}
+      {!isMobile && (
+        <HeroLogoCanvas
+          logoSrc="/images/Preloader/logo.svg"
+          logoAreaRef={logoInnerRef}
+        />
+      )}
 
       {/* Big center wordmark */}
       <div
@@ -113,7 +115,7 @@ export default function Hero() {
           top: "50%",
           maxHeight: isMobile ? "9.5972vh" : "25%",
           maxWidth: isMobile ? "100%" : "50%",
-          height: isMobile ? "auto" : "100%",
+          height: "100%",
           width: isMobile ? "75.641vw" : "100%",
           transform: "translate(-50%, -100%)",
           pointerEvents: "none",
@@ -122,10 +124,16 @@ export default function Hero() {
         }}
       >
         <div ref={logoInnerRef} style={{ position: "relative", display: "inline-block", height: "100%" }}>
+          {/* On mobile: show the real logo. On desktop: invisible placeholder for canvas reference */}
           <img
             src="/images/Preloader/logo.svg"
             alt="Kurate"
-            style={{ height: "100%", width: "auto", display: "block", visibility: "hidden" }}
+            style={{
+              height: "100%",
+              width: "auto",
+              display: "block",
+              visibility: isMobile ? "visible" : "hidden",
+            }}
           />
           <img
             src="/images/icons/trademark-symbol.svg"
@@ -138,7 +146,7 @@ export default function Hero() {
               height: isMobile ? "2.436vw" : "1.4vw",
               width: isMobile ? "2.436vw" : "1.4vw",
               transform: "translate(120%, 30%)",
-              visibility: "hidden",
+              visibility: isMobile ? "visible" : "hidden",
             }}
           />
         </div>
