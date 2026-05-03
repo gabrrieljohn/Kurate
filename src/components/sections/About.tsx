@@ -108,6 +108,7 @@ const H3_STYLE: React.CSSProperties = {
   lineHeight: "112.8%",
   textTransform: "none",
   fontWeight: 400,
+  textAlign: "center",
 };
 
 const h3Delay = (i: number): React.CSSProperties => ({
@@ -177,14 +178,14 @@ export default function About() {
             Empowering artists,
           </h3>
 
-          {/* Line 2: "captivating global [spec desktop-only] audiences," */}
+          {/* Line 2: "captivating global [spec] audiences," — flexWrap so spec+audiences wraps on mobile */}
           <h3
             className="reveal"
-            style={{ ...h3Delay(1), display: "flex", alignItems: "center", justifyContent: "center" }}
+            style={{ ...h3Delay(1), display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap" }}
           >
             captivating global
-            {!isMobile && <Spectrograph visible={sectionVisible} isMobile={false} />}
-            {isMobile ? " " : ""}audiences,
+            <Spectrograph visible={sectionVisible} isMobile={isMobile} />
+            audiences,
           </h3>
 
           {/* Line 3: "and redefining the future of music" — underline on "redefining" */}
