@@ -112,7 +112,7 @@ export default function Hero() {
         style={{
           position: "absolute",
           left: "50%",
-          top: "50%",
+          top: isMobile ? "62%" : "50%",
           maxHeight: isMobile ? "9.5972vh" : "25%",
           maxWidth: isMobile ? "100%" : "50%",
           height: "100%",
