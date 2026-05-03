@@ -8,8 +8,14 @@ export default function Cursor() {
   const hoveringRef = useRef(false);
   const [hovering, setHovering] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
+    // Don't show custom cursor on touch/mobile devices
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      setIsTouchDevice(true);
+      return;
+    }
     let raf = 0;
     let mx = -100,
       my = -100;
@@ -50,6 +56,8 @@ export default function Cursor() {
       window.removeEventListener("mousemove", onMove);
     };
   }, [visible]);
+
+  if (isTouchDevice) return null;
 
   return (
     <>
