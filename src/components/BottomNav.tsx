@@ -61,7 +61,7 @@ export default function BottomNav() {
     const panel = panelRef.current;
     const dropdown = dropdownRef.current;
     if (!panel || !dropdown) return;
-    const baseH = isMobile ? "12vh" : "7.5vh";
+    const baseH = "7.5vh";
     if (menuOpen) {
       const panelH = panel.offsetHeight;
       const dropdownH = dropdown.offsetHeight;
@@ -140,7 +140,7 @@ export default function BottomNav() {
             position: "relative",
             display: "flex",
             alignItems: "flex-end",
-            height: isMobile ? "12vh" : "7.5vh",
+            height: "7.5vh",
             width: "100%",
             padding: isMobile ? "0" : "0.397vw",
             background: isMobile ? "transparent" : "rgba(222,222,222,0.03)",
@@ -435,54 +435,38 @@ export default function BottomNav() {
                 />
               )}
 
-              {/* Mobile: label + play button + album art */}
+              {/* Mobile: just the play button, compact */}
               {isMobile ? (
-                <>
-                  {/* Inner wrapper centers content */}
-                  <div style={{ display: "flex", alignItems: "center", gap: "2.5vw", width: "100%", padding: "0 4vw", position: "relative", zIndex: 1 }}>
-                    <span style={{ fontSize: "2.308vw", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", opacity: 0.7, whiteSpace: "nowrap", flexShrink: 0 }}>
-                      SC Play Music
-                    </span>
-                    <button
-                      onClick={() => setPlayerOpen((v) => !v)}
-                      aria-label={playerOpen ? "Pause" : "Play"}
-                      style={{
-                        width: "8vw",
-                        height: "8vw",
-                        borderRadius: 9999,
-                        background: "#fafafa",
-                        color: "#0e0f0f",
-                        border: 0,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        cursor: "pointer",
-                        flexShrink: 0,
-                        zIndex: 2,
-                        position: "relative",
-                      }}
-                    >
-                      {playerOpen ? (
-                        <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
-                          <rect x="2" y="2" width="3" height="10" />
-                          <rect x="9" y="2" width="3" height="10" />
-                        </svg>
-                      ) : (
-                        <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
-                          <path d="M3 1.5v11l10-5.5z" />
-                        </svg>
-                      )}
-                    </button>
-                  </div>
-                  {/* Album art — absolutely positioned on the right */}
-                  <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "28vw", overflow: "hidden" }}>
-                    <img
-                      src="/images/Hero/card2.jpg"
-                      alt=""
-                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
-                    />
-                  </div>
-                </>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%" }}>
+                  <button
+                    onClick={() => setPlayerOpen((v) => !v)}
+                    aria-label={playerOpen ? "Pause" : "Play"}
+                    style={{
+                      width: "8vw",
+                      height: "8vw",
+                      borderRadius: 9999,
+                      background: "#fafafa",
+                      color: "#0e0f0f",
+                      border: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {playerOpen ? (
+                      <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
+                        <rect x="2" y="2" width="3" height="10" />
+                        <rect x="9" y="2" width="3" height="10" />
+                      </svg>
+                    ) : (
+                      <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
+                        <path d="M3 1.5v11l10-5.5z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
               ) : (
                 <button
                   onClick={() => setPlayerOpen((v) => !v)}
