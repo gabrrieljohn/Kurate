@@ -278,6 +278,7 @@ export default function BottomNav() {
               alignItems: "stretch",
               height: isMobile ? "100%" : "5.75vh",
               width: "100%",
+              padding: isMobile ? "1.5vw" : undefined,
               borderRadius: isMobile ? "2.564vw" : undefined,
               background: isMobile ? "#171717" : undefined,
             }}
@@ -435,37 +436,52 @@ export default function BottomNav() {
                 />
               )}
 
-              {/* Mobile: just the play button, compact */}
+              {/* Mobile: SC label + play button + album art */}
               {isMobile ? (
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100%" }}>
-                  <button
-                    onClick={() => setPlayerOpen((v) => !v)}
-                    aria-label={playerOpen ? "Pause" : "Play"}
-                    style={{
-                      width: "8vw",
-                      height: "8vw",
-                      borderRadius: 9999,
-                      background: "#fafafa",
-                      color: "#0e0f0f",
-                      border: 0,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer",
-                      flexShrink: 0,
-                    }}
-                  >
-                    {playerOpen ? (
-                      <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
-                        <rect x="2" y="2" width="3" height="10" />
-                        <rect x="9" y="2" width="3" height="10" />
-                      </svg>
-                    ) : (
-                      <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
-                        <path d="M3 1.5v11l10-5.5z" />
-                      </svg>
-                    )}
-                  </button>
+                <div style={{ display: "flex", alignItems: "center", width: "100%", height: "100%", borderRadius: "2.051vw", background: "rgba(201,201,201,0.051)", overflow: "hidden", position: "relative" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "2vw", padding: "0 3vw", position: "relative", zIndex: 1, flex: 1 }}>
+                    <span style={{ fontSize: "1.795vw", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", opacity: 0.7, whiteSpace: "nowrap", flexShrink: 0 }}>
+                      SC Play Music
+                    </span>
+                    <button
+                      onClick={() => setPlayerOpen((v) => !v)}
+                      aria-label={playerOpen ? "Pause" : "Play"}
+                      style={{
+                        width: "7vw",
+                        height: "7vw",
+                        borderRadius: 9999,
+                        background: "#fafafa",
+                        color: "#0e0f0f",
+                        border: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                        flexShrink: 0,
+                        zIndex: 2,
+                        position: "relative",
+                      }}
+                    >
+                      {playerOpen ? (
+                        <svg width="10" height="10" viewBox="0 0 14 14" fill="currentColor">
+                          <rect x="2" y="2" width="3" height="10" />
+                          <rect x="9" y="2" width="3" height="10" />
+                        </svg>
+                      ) : (
+                        <svg width="10" height="10" viewBox="0 0 14 14" fill="currentColor">
+                          <path d="M3 1.5v11l10-5.5z" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                  {/* Album art on the right edge */}
+                  <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "25vw", overflow: "hidden" }}>
+                    <img
+                      src="/images/Hero/card2.jpg"
+                      alt=""
+                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+                    />
+                  </div>
                 </div>
               ) : (
                 <button

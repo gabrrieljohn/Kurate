@@ -166,22 +166,25 @@ export default function About() {
             justifyContent: "center",
           }}
         >
-          {/* Line 1: "(About) Empowering artists," — section-span is inline */}
-          <h3 className="reveal" style={h3Delay(0)}>
-            <span className="section-span">
+          {/* Line 1: "(About) Empowering artists," — section-span is absolute in left margin */}
+          <h3 className="reveal" style={{ ...h3Delay(0), position: "relative" }}>
+            <span
+              className="section-span"
+              style={{ position: "absolute", top: 0, left: 0, transform: "translateX(-200%)" }}
+            >
               <div className="reveal">(About)</div>
             </span>
             Empowering artists,
           </h3>
 
-          {/* Line 2: "captivating global [spec] audiences," */}
+          {/* Line 2: "captivating global [spec desktop-only] audiences," */}
           <h3
             className="reveal"
             style={{ ...h3Delay(1), display: "flex", alignItems: "center", justifyContent: "center" }}
           >
             captivating global
-            <Spectrograph visible={sectionVisible} isMobile={isMobile} />
-            audiences,
+            {!isMobile && <Spectrograph visible={sectionVisible} isMobile={false} />}
+            {isMobile ? " " : ""}audiences,
           </h3>
 
           {/* Line 3: "and redefining the future of music" — underline on "redefining" */}
