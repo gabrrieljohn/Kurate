@@ -172,7 +172,7 @@ export default function Artists() {
               width: "100%",
               alignItems: "center",
               justifyContent: "flex-start",
-              gap: "20vw",
+              gap: isMobile ? 0 : "20vw",
             }}
           >
             {/* Left: Our / Artists with (Meet our Artists) label */}
@@ -184,7 +184,7 @@ export default function Artists() {
                   position: "absolute",
                   left: 0,
                   bottom: 0,
-                  fontSize: "1.323vw",
+                  fontSize: isMobile ? undefined : "1.323vw",
                   lineHeight: "150%",
                 }}
               >
@@ -207,7 +207,7 @@ export default function Artists() {
               </span>
               <h1
                 style={{
-                  fontSize: "10.582vw",
+                  fontSize: isMobile ? "16.41vw" : "10.582vw",
                   fontWeight: 400,
                   margin: 0,
                   overflow: "hidden",
@@ -218,19 +218,20 @@ export default function Artists() {
               </h1>
               <h1
                 style={{
-                  fontSize: "10.582vw",
+                  fontSize: isMobile ? "16.41vw" : "10.582vw",
                   fontWeight: 400,
                   margin: 0,
                   overflow: "hidden",
                   lineHeight: "84%",
-                  transform: "translateX(50%)",
+                  transform: isMobile ? "translateX(15vw)" : "translateX(50%)",
                 }}
               >
                 {renderChars("Artists", 0.5, 0.115, 1, sectionVisible)}
               </h1>
             </div>
 
-            {/* Right: sound waves + description + learn more */}
+            {/* Right: sound waves + description + learn more — desktop only */}
+            {!isMobile && (
             <div
               style={{
                 display: "flex",
@@ -245,8 +246,8 @@ export default function Artists() {
                 src="/images/Artists/soundWaves.svg"
                 alt=""
                 style={{
-                  height: isMobile ? "5.385vw" : "1.852vw",
-                  width: isMobile ? "6.154vw" : "2.116vw",
+                  height: "1.852vw",
+                  width: "2.116vw",
                   objectFit: "cover",
                   opacity: sectionVisible ? 1 : 0,
                   transform: sectionVisible ? "translateY(0)" : "translateY(100%)",
@@ -326,6 +327,7 @@ export default function Artists() {
                 </span>
               </a>
             </div>
+            )}
           </div>
         </div>
 
@@ -333,7 +335,8 @@ export default function Artists() {
         <div
           ref={containerRef}
           style={{
-            flex: isMobile ? "1 1 0%" : 0.7,
+            flex: isMobile ? "none" : 0.7,
+            height: isMobile ? "70vh" : undefined,
             overflow: "hidden",
             display: "flex",
             width: "100%",

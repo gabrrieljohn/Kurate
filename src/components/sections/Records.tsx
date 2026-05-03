@@ -491,7 +491,7 @@ export default function Records() {
               >
                 <CrossBrackets />
               </div>
-              <p className="brand-text" style={{ fontSize: "0.926vw" }}>
+              <p className="brand-text" style={{ fontSize: isMobile ? "3.59vw" : "0.926vw" }}>
                 <div>
                   <span className="reveal">To date, Kurate has collaborated with over 1,000</span>
                 </div>
