@@ -79,13 +79,13 @@ export default function Footer() {
               <span
                 style={{
                   display: "inline-block",
-                  width: "1.5vw",
+                  width: isMobile ? "5.128vw" : "1.5vw",
                   height: 1,
                   background: "currentColor",
                   flexShrink: 0,
                 }}
               />
-              <p style={{ fontSize: "0.95vw" }}>Dynamic Record Label</p>
+              <p style={{ fontSize: isMobile ? "3.59vw" : "0.95vw" }}>Dynamic Record Label</p>
             </div>
           </div>
         </div>

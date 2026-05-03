@@ -213,11 +213,11 @@ export default function SendDemos() {
               {/* Subtitle */}
               <p
                 style={{
-                  fontSize: "1.2vw",
+                  fontSize: isMobile ? "4.103vw" : "1.2vw",
                   color: "rgba(250,250,250,0.7)",
                   textAlign: "center",
                   margin: 0,
-                  marginBottom: "2.5vw",
+                  marginBottom: isMobile ? "6vw" : "2.5vw",
                   lineHeight: "1.6",
                   fontFamily: "inherit",
                 }}
@@ -247,16 +247,16 @@ export default function SendDemos() {
                         background: "rgba(255,255,255,0.035)",
                         border: "1px solid rgba(255,255,255,0.07)",
                         borderRadius: "9999px",
-                        padding: "1.6vw 2.4vw",
+                        padding: isMobile ? "3.5vw 5vw" : "1.6vw 2.4vw",
                       }}
                     >
                       <div
                         style={{
-                          fontSize: "0.6vw",
+                          fontSize: isMobile ? "2.564vw" : "0.6vw",
                           letterSpacing: "0.12em",
                           textTransform: "uppercase",
                           color: "rgba(250,250,250,0.3)",
-                          marginBottom: "0.4vw",
+                          marginBottom: isMobile ? "1.5vw" : "0.4vw",
                           fontFamily: "inherit",
                         }}
                       >
@@ -307,8 +307,8 @@ export default function SendDemos() {
                     <button
                       onClick={handleNext}
                       style={{
-                        width: "4.2vw",
-                        height: "4.2vw",
+                        width: isMobile ? "12vw" : "4.2vw",
+                        height: isMobile ? "12vw" : "4.2vw",
                         borderRadius: "50%",
                         border: `1px solid ${
                           canAdvance
@@ -348,17 +348,17 @@ export default function SendDemos() {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "0.5vw",
-                      marginTop: "2.2vw",
-                      marginBottom: "1.8vw",
+                      gap: isMobile ? "2vw" : "0.5vw",
+                      marginTop: isMobile ? "6vw" : "2.2vw",
+                      marginBottom: isMobile ? "5vw" : "1.8vw",
                     }}
                   >
                     {([1, 2, 3] as Step[]).map((dot) => (
                       <div
                         key={dot}
                         style={{
-                          height: "0.3vw",
-                          width: dot === step ? "2vw" : "0.3vw",
+                          height: isMobile ? "1.2vw" : "0.3vw",
+                          width: dot === step ? (isMobile ? "8vw" : "2vw") : (isMobile ? "1.2vw" : "0.3vw"),
                           borderRadius: "9999px",
                           background:
                             dot === step
@@ -380,13 +380,13 @@ export default function SendDemos() {
                       border: "none",
                       color: nextHover ? "#0e0f0f" : "rgba(250,250,250,0.7)",
                       fontFamily: "inherit",
-                      fontSize: "0.85vw",
+                      fontSize: isMobile ? "3.5vw" : "0.85vw",
                       cursor: "pointer",
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: "0.4vw",
+                      gap: isMobile ? "2vw" : "0.4vw",
                       borderRadius: "9999px",
-                      padding: "0.6vw 1.4vw",
+                      padding: isMobile ? "2.5vw 5vw" : "0.6vw 1.4vw",
                       transition: "background 0.25s ease, color 0.25s ease",
                     } as React.CSSProperties}
                   >
@@ -423,12 +423,12 @@ export default function SendDemos() {
                 >
                   <p
                     style={{
-                      fontSize: "0.65vw",
+                      fontSize: isMobile ? "2.564vw" : "0.65vw",
                       letterSpacing: "0.12em",
                       textTransform: "uppercase",
                       color: "rgba(250,250,250,0.35)",
                       margin: 0,
-                      marginBottom: "2vw",
+                      marginBottom: isMobile ? "5vw" : "2vw",
                       fontFamily: "inherit",
                     }}
                   >
@@ -474,14 +474,14 @@ export default function SendDemos() {
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
-                      gap: "0.5vw",
-                      padding: "0.75vw 2vw",
+                      gap: isMobile ? "2vw" : "0.5vw",
+                      padding: isMobile ? "3vw 6vw" : "0.75vw 2vw",
                       background: "#fafafa",
                       color: "#0e0f0f",
                       border: "none",
                       borderRadius: "9999px",
                       fontFamily: "inherit",
-                      fontSize: "0.9vw",
+                      fontSize: isMobile ? "3.5vw" : "0.9vw",
                       cursor: "pointer",
                       fontWeight: 400,
                     }}
@@ -515,12 +515,12 @@ export default function SendDemos() {
             <div style={{ textAlign: "center" }}>
               <p
                 style={{
-                  fontSize: "0.65vw",
+                  fontSize: isMobile ? "2.564vw" : "0.65vw",
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
                   color: "rgba(250,250,250,0.35)",
                   margin: 0,
-                  marginBottom: "1.8vw",
+                  marginBottom: isMobile ? "5vw" : "1.8vw",
                   fontFamily: "inherit",
                 }}
               >
@@ -528,11 +528,11 @@ export default function SendDemos() {
               </p>
               <div
                 style={{
-                  fontSize: "4.2vw",
+                  fontSize: isMobile ? "8vw" : "4.2vw",
                   fontWeight: 400,
                   letterSpacing: "-0.02em",
                   lineHeight: "1.1",
-                  marginBottom: "1.5vw",
+                  marginBottom: isMobile ? "5vw" : "1.5vw",
                 }}
               >
                 Thank you{" "}
@@ -542,7 +542,7 @@ export default function SendDemos() {
               </div>
               <p
                 style={{
-                  fontSize: "0.85vw",
+                  fontSize: isMobile ? "3.5vw" : "0.85vw",
                   color: "rgba(250,250,250,0.5)",
                   margin: 0,
                   fontFamily: "inherit",
@@ -555,8 +555,8 @@ export default function SendDemos() {
         </div>
       </div>
 
-      {/* Your info panel — floats bottom-right from step 2 onward */}
-      {step >= 2 && (
+      {/* Your info panel — floats bottom-right from step 2 onward (desktop only) */}
+      {step >= 2 && !isMobile && (
         <div
           style={{
             position: "absolute",
