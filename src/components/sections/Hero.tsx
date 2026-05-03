@@ -243,7 +243,7 @@ export default function Hero() {
         style={{
           position: "absolute",
           right: 0,
-          top: isMobile ? 0 : "15.4028vh",
+          top: "15.4028vh",
           zIndex: 3,
           userSelect: "none",
         }}
