@@ -118,6 +118,9 @@ export default function BottomNav() {
         listStyle: "none",
         padding: 0,
         margin: 0,
+        background: "transparent",
+        border: "none",
+        outline: "none",
         transition: isMobile ? "width 0.5s cubic-bezier(0.65,0,0.35,1)" : undefined,
       }}
     >
@@ -139,8 +142,8 @@ export default function BottomNav() {
             alignItems: "flex-end",
             height: isMobile ? "12vh" : "7.5vh",
             width: "100%",
-            padding: isMobile ? "2.051vw 1.538vw 1.538vw" : "0.397vw",
-            background: isMobile ? "#171717" : "rgba(222,222,222,0.03)",
+            padding: isMobile ? "0" : "0.397vw",
+            background: isMobile ? "transparent" : "rgba(222,222,222,0.03)",
             borderRadius: menuOpen ? "0" : borderRadius,
             transition: "height 0.5s ease, border-radius 0.4s ease",
           }}
@@ -273,7 +276,7 @@ export default function BottomNav() {
               position: "relative",
               display: "flex",
               alignItems: "stretch",
-              height: isMobile ? "8vh" : "5.75vh",
+              height: isMobile ? "100%" : "5.75vh",
               width: "100%",
               borderRadius: isMobile ? "2.564vw" : undefined,
               background: isMobile ? "#171717" : undefined,
