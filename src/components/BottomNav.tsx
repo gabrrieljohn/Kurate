@@ -103,10 +103,10 @@ export default function BottomNav() {
       style={{
         position: "fixed",
         ...(isMobile
-          ? { top: "72.5vh", bottom: "auto" }
+          ? { bottom: "2.7778vh" }
           : { bottom: "2.7778vh" }),
         left: "50%",
-        width: isMobile ? (menuOpen ? "95vw" : "75vw") : "35%",
+        width: isMobile ? (menuOpen ? "95vw" : "90vw") : "35%",
         transform: "translateX(-50%)",
         zIndex: 4,
         borderRadius,
