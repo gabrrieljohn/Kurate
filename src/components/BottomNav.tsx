@@ -312,23 +312,25 @@ export default function BottomNav() {
               style={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "center",
-                gap: isMobile ? "2vw" : "0.926vw",
+                justifyContent: isMobile ? "flex-start" : "center",
+                gap: isMobile ? "3.59vw" : "0.926vw",
                 height: "100%",
                 width: isMobile ? "48%" : undefined,
                 minWidth: isMobile ? "48%" : undefined,
                 flexShrink: isMobile ? 0 : undefined,
                 borderRadius: isMobile ? "2.564vw" : "0.5vw",
                 background: "rgba(201,201,201,0.051)",
-                padding: isMobile ? "0 3vw" : "0 0.926vw",
+                padding: isMobile ? "0 5.128vw" : "0 0.926vw",
                 cursor: "pointer",
                 listStyle: "none",
               }}
             >
               <div
                 style={{
-                  height: isMobile ? "1.5vw" : "0.529vw",
-                  width: isMobile ? "2vw" : "0.728vw",
+                  height: isMobile ? "2.308vw" : "0.529vw",
+                  width: isMobile ? "2.821vw" : "0.728vw",
+                  minHeight: isMobile ? "2.308vw" : undefined,
+                  minWidth: isMobile ? "2.821vw" : undefined,
                   flexShrink: 0,
                   display: "flex",
                   alignItems: "center",
@@ -403,14 +405,17 @@ export default function BottomNav() {
                 width: isMobile ? "48%" : undefined,
                 minWidth: isMobile ? "48%" : undefined,
                 flexShrink: isMobile ? 0 : undefined,
+                marginLeft: isMobile ? "auto" : undefined,
                 paddingRight: isMobile ? 0 : "0.529vw",
-                justifyContent: isMobile ? "center" : undefined,
+                justifyContent: isMobile ? "flex-start" : undefined,
                 opacity: menuOpen ? 0 : 1,
                 pointerEvents: menuOpen ? "none" : "auto",
                 transition: "opacity 0.4s ease",
                 listStyle: "none",
                 borderRadius: isMobile ? "2.564vw" : undefined,
                 background: isMobile ? "rgba(201,201,201,0.051)" : undefined,
+                overflow: "hidden",
+                position: "relative",
               }}
             >
               {!isMobile && (
@@ -426,36 +431,87 @@ export default function BottomNav() {
                   }}
                 />
               )}
-              <button
-                onClick={() => setPlayerOpen((v) => !v)}
-                aria-label={playerOpen ? "Pause" : "Play"}
-                style={{
-                  width: isMobile ? "8vw" : "2.6vw",
-                  height: isMobile ? "8vw" : "2.6vw",
-                  minWidth: isMobile ? undefined : 32,
-                  minHeight: isMobile ? undefined : 32,
-                  borderRadius: 9999,
-                  background: "#fafafa",
-                  color: "#0e0f0f",
-                  border: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  cursor: "pointer",
-                  flexShrink: 0,
-                }}
-              >
-                {playerOpen ? (
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
-                    <rect x="2" y="2" width="3" height="10" />
-                    <rect x="9" y="2" width="3" height="10" />
-                  </svg>
-                ) : (
-                  <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
-                    <path d="M3 1.5v11l10-5.5z" />
-                  </svg>
-                )}
-              </button>
+
+              {/* Mobile: label + play button + album art */}
+              {isMobile ? (
+                <>
+                  {/* Inner wrapper centers content */}
+                  <div style={{ display: "flex", alignItems: "center", gap: "2.5vw", width: "100%", padding: "0 4vw", position: "relative", zIndex: 1 }}>
+                    <span style={{ fontSize: "2.308vw", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", opacity: 0.7, whiteSpace: "nowrap", flexShrink: 0 }}>
+                      SC Play Music
+                    </span>
+                    <button
+                      onClick={() => setPlayerOpen((v) => !v)}
+                      aria-label={playerOpen ? "Pause" : "Play"}
+                      style={{
+                        width: "8vw",
+                        height: "8vw",
+                        borderRadius: 9999,
+                        background: "#fafafa",
+                        color: "#0e0f0f",
+                        border: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                        flexShrink: 0,
+                        zIndex: 2,
+                        position: "relative",
+                      }}
+                    >
+                      {playerOpen ? (
+                        <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
+                          <rect x="2" y="2" width="3" height="10" />
+                          <rect x="9" y="2" width="3" height="10" />
+                        </svg>
+                      ) : (
+                        <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
+                          <path d="M3 1.5v11l10-5.5z" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
+                  {/* Album art — absolutely positioned on the right */}
+                  <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "28vw", overflow: "hidden" }}>
+                    <img
+                      src="/images/Hero/card2.jpg"
+                      alt=""
+                      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+                    />
+                  </div>
+                </>
+              ) : (
+                <button
+                  onClick={() => setPlayerOpen((v) => !v)}
+                  aria-label={playerOpen ? "Pause" : "Play"}
+                  style={{
+                    width: "2.6vw",
+                    height: "2.6vw",
+                    minWidth: 32,
+                    minHeight: 32,
+                    borderRadius: 9999,
+                    background: "#fafafa",
+                    color: "#0e0f0f",
+                    border: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    flexShrink: 0,
+                  }}
+                >
+                  {playerOpen ? (
+                    <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
+                      <rect x="2" y="2" width="3" height="10" />
+                      <rect x="9" y="2" width="3" height="10" />
+                    </svg>
+                  ) : (
+                    <svg width="12" height="12" viewBox="0 0 14 14" fill="currentColor">
+                      <path d="M3 1.5v11l10-5.5z" />
+                    </svg>
+                  )}
+                </button>
+              )}
             </li>
           </nav>
         </div>
