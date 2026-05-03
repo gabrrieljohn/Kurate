@@ -4,11 +4,13 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HeroLogoCanvas from "@/components/HeroLogoCanvas";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const CARD1_FLOURISH_D =
   "M79.8252 10.0149C81.9781 10.0149 84.1768 9.88847 86.3269 10.0149C87.5136 10.0848 87.3996 11.288 86.8429 12.079C84.3382 15.6383 79.005 17.0768 75.0263 17.8583C57.2131 21.3573 35.8275 22.241 19.0392 14.4526C17.9109 13.9292 -0.146546 4.9881 2.01081 3.10041C4.86251 0.605172 15.6668 5.03694 18.4715 5.93847C26.5415 8.53238 34.2572 12.5322 41.692 16.5683C53.7631 23.1212 67.9457 34.0764 69.4018 48.8189C70.4067 58.9935 63.6029 68.5919 54.6439 73.0714C48.3069 76.2399 41.0103 76.1444 34.3131 77.8187";
 
 export default function Hero() {
+  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
   const logoInnerRef = useRef<HTMLDivElement>(null);
@@ -109,10 +111,10 @@ export default function Hero() {
           position: "absolute",
           left: "50%",
           top: "50%",
-          maxHeight: "25%",
-          maxWidth: "50%",
-          height: "100%",
-          width: "100%",
+          maxHeight: isMobile ? "9.5972vh" : "25%",
+          maxWidth: isMobile ? "100%" : "50%",
+          height: isMobile ? "auto" : "100%",
+          width: isMobile ? "75.641vw" : "100%",
           transform: "translate(-50%, -100%)",
           pointerEvents: "none",
           zIndex: 2,
@@ -133,8 +135,8 @@ export default function Hero() {
               position: "absolute",
               top: 0,
               right: 0,
-              height: "1.4vw",
-              width: "1.4vw",
+              height: isMobile ? "2.436vw" : "1.4vw",
+              width: isMobile ? "2.436vw" : "1.4vw",
               transform: "translate(120%, 30%)",
               visibility: "hidden",
             }}
@@ -161,7 +163,7 @@ export default function Hero() {
             display: "flex",
             gap: "12px",
             alignItems: "stretch",
-            fontSize: "0.926vw",
+            fontSize: isMobile ? "3.077vw" : "0.926vw",
           }}
         >
           <div
@@ -181,8 +183,8 @@ export default function Hero() {
           <div
             style={{
               position: "relative",
-              width: "11.574vw",
-              height: "14.881vw",
+              width: isMobile ? "23.59vw" : "11.574vw",
+              height: isMobile ? "30.769vw" : "14.881vw",
               borderRadius: "0.4vw",
               overflow: "hidden",
               boxShadow: "0 25px 60px -10px rgba(0,0,0,0.6)",
@@ -208,8 +210,8 @@ export default function Hero() {
                 position: "absolute",
                 right: 0,
                 bottom: 0,
-                width: "5.622vw",
-                height: "4.96vw",
+                width: isMobile ? "11.538vw" : "5.622vw",
+                height: isMobile ? "10.256vw" : "4.96vw",
                 zIndex: 2,
               }}
             >
@@ -247,7 +249,7 @@ export default function Hero() {
             flexDirection: "column-reverse",
             alignItems: "flex-start",
             gap: "0.6vw",
-            fontSize: "0.926vw",
+            fontSize: isMobile ? "3.077vw" : "0.926vw",
           }}
         >
           <div
@@ -262,8 +264,8 @@ export default function Hero() {
           </div>
           <div
             style={{
-              width: "16.204vw",
-              height: "20vh",
+              width: isMobile ? "26.41vw" : "16.204vw",
+              height: isMobile ? "36.41vw" : "20vh",
               borderRadius: "0.4vw",
               overflow: "hidden",
               position: "relative",

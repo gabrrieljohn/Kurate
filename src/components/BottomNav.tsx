@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const NAV_BY_ROUTE: Record<string, { title: string; href: string }[]> = {
   "/": [
@@ -41,6 +42,7 @@ export default function BottomNav() {
   const menuRef = useRef<HTMLElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   const items = NAV_BY_ROUTE[pathname] ?? [];
 
@@ -59,14 +61,15 @@ export default function BottomNav() {
     const panel = panelRef.current;
     const dropdown = dropdownRef.current;
     if (!panel || !dropdown) return;
+    const baseH = isMobile ? "12vh" : "7.5vh";
     if (menuOpen) {
       const panelH = panel.offsetHeight;
       const dropdownH = dropdown.offsetHeight;
       panel.style.height = `${panelH + dropdownH}px`;
     } else {
-      panel.style.height = "7.5vh";
+      panel.style.height = baseH;
     }
-  }, [menuOpen]);
+  }, [menuOpen, isMobile]);
 
   const smoothScroll = (targetY: number) => {
     const startY = window.scrollY;
@@ -92,33 +95,38 @@ export default function BottomNav() {
     }
   };
 
+  const borderRadius = isMobile ? "3.077vw" : "0.794vw";
+
   return (
     <menu
       ref={menuRef}
       style={{
         position: "fixed",
-        bottom: "2.7778vh",
+        ...(isMobile
+          ? { top: "72.5vh", bottom: "auto" }
+          : { bottom: "2.7778vh" }),
         left: "50%",
-        width: "35%",
+        width: isMobile ? (menuOpen ? "95vw" : "75vw") : "35%",
         transform: "translateX(-50%)",
         zIndex: 4,
-        borderRadius: "0.794vw",
+        borderRadius,
         perspective: "1000px",
         fontFamily: "Plus Jakarta Sans, sans-serif",
-        fontSize: "1.058vw",
+        fontSize: isMobile ? "4.103vw" : "1.058vw",
         fontWeight: 500,
         color: "#fafafa",
         listStyle: "none",
         padding: 0,
         margin: 0,
+        transition: isMobile ? "width 0.5s cubic-bezier(0.65,0,0.35,1)" : undefined,
       }}
     >
       {/* Panels container — overflow:hidden clips children to border-radius */}
       <div
         style={{
           overflow: "hidden",
-          borderRadius: menuOpen ? "0 0 0.794vw 0.794vw" : "0.794vw",
-          backdropFilter: "blur(59px)",
+          borderRadius: menuOpen ? `0 0 ${borderRadius} ${borderRadius}` : borderRadius,
+          backdropFilter: isMobile ? "none" : "blur(59px)",
           transition: "border-radius 0.4s ease",
         }}
       >
@@ -129,11 +137,11 @@ export default function BottomNav() {
             position: "relative",
             display: "flex",
             alignItems: "flex-end",
-            height: "7.5vh",
+            height: isMobile ? "12vh" : "7.5vh",
             width: "100%",
-            padding: "0.397vw",
-            background: "rgba(222,222,222,0.03)",
-            borderRadius: menuOpen ? "0" : "0.794vw",
+            padding: isMobile ? "2.051vw 1.538vw 1.538vw" : "0.397vw",
+            background: isMobile ? "#171717" : "rgba(222,222,222,0.03)",
+            borderRadius: menuOpen ? "0" : borderRadius,
             transition: "height 0.5s ease, border-radius 0.4s ease",
           }}
         >
@@ -145,8 +153,12 @@ export default function BottomNav() {
               top: 0,
               left: 0,
               right: 0,
-              padding: "0.397vw 0.397vw 0 0.397vw",
-              borderRadius: "0.794vw 0.794vw 0 0",
+              padding: isMobile
+                ? `1.538vw 1.538vw 0 1.538vw`
+                : "0.397vw 0.397vw 0 0.397vw",
+              borderRadius: isMobile
+                ? `${borderRadius} ${borderRadius} 0 0`
+                : `${borderRadius} ${borderRadius} 0 0`,
               opacity: menuOpen ? 1 : 0,
               pointerEvents: menuOpen ? "auto" : "none",
               transition: menuOpen
@@ -159,17 +171,17 @@ export default function BottomNav() {
                 display: "flex",
                 alignItems: "flex-start",
                 justifyContent: "space-between",
-                borderRadius: "0.5vw",
-                padding: "1.653vw",
-                backdropFilter: "blur(88.5px)",
-                background: "rgba(0,0,0,0.1)",
+                borderRadius: isMobile ? borderRadius : "0.5vw",
+                padding: isMobile ? "1.538vw" : "1.653vw",
+                backdropFilter: isMobile ? "none" : "blur(88.5px)",
+                background: isMobile ? "#171717" : "rgba(0,0,0,0.1)",
               }}
             >
               {/* Explore column */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "1.323vw" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? "3vw" : "1.323vw" }}>
                 <span
                   style={{
-                    fontSize: "0.661vw",
+                    fontSize: isMobile ? "3.077vw" : "0.661vw",
                     fontWeight: 500,
                     textTransform: "uppercase",
                     opacity: 0.55,
@@ -185,7 +197,7 @@ export default function BottomNav() {
                     margin: 0,
                     display: "flex",
                     flexDirection: "column",
-                    gap: "0.661vw",
+                    gap: isMobile ? "2vw" : "0.661vw",
                   }}
                 >
                   {EXPLORE_LINKS.map((l) => (
@@ -196,7 +208,7 @@ export default function BottomNav() {
                         style={{
                           textDecoration: "none",
                           color: "#fafafa",
-                          fontSize: "1vw",
+                          fontSize: isMobile ? "4.103vw" : "1vw",
                           opacity: 0.85,
                         }}
                       >
@@ -208,10 +220,10 @@ export default function BottomNav() {
               </div>
 
               {/* Follow column */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "1.323vw" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? "3vw" : "1.323vw" }}>
                 <span
                   style={{
-                    fontSize: "0.661vw",
+                    fontSize: isMobile ? "3.077vw" : "0.661vw",
                     fontWeight: 500,
                     textTransform: "uppercase",
                     opacity: 0.55,
@@ -227,7 +239,7 @@ export default function BottomNav() {
                     margin: 0,
                     display: "flex",
                     flexDirection: "column",
-                    gap: "0.661vw",
+                    gap: isMobile ? "2vw" : "0.661vw",
                   }}
                 >
                   {FOLLOW_LINKS.map((l) => (
@@ -239,7 +251,7 @@ export default function BottomNav() {
                         style={{
                           textDecoration: "none",
                           color: "#fafafa",
-                          fontSize: "1vw",
+                          fontSize: isMobile ? "4.103vw" : "1vw",
                           opacity: 0.85,
                         }}
                       >
@@ -255,14 +267,16 @@ export default function BottomNav() {
             </div>
           </div>
 
-          {/* Nav bar — height 5.75vh, stays at bottom via align-items:flex-end on parent */}
+          {/* Nav bar — stays at bottom via align-items:flex-end on parent */}
           <nav
             style={{
               position: "relative",
               display: "flex",
               alignItems: "stretch",
-              height: "5.75vh",
+              height: isMobile ? "8vh" : "5.75vh",
               width: "100%",
+              borderRadius: isMobile ? "2.564vw" : undefined,
+              background: isMobile ? "#171717" : undefined,
             }}
           >
             {/* Close × — absolute right, appears when menu open */}
@@ -271,9 +285,9 @@ export default function BottomNav() {
               style={{
                 position: "absolute",
                 top: "50%",
-                right: "1.323vw",
-                height: "0.794vw",
-                width: "0.794vw",
+                right: isMobile ? "6.667vw" : "1.323vw",
+                height: isMobile ? "3.077vw" : "0.794vw",
+                width: isMobile ? "3.077vw" : "0.794vw",
                 transform: "translateY(-50%)",
                 opacity: menuOpen ? 1 : 0,
                 pointerEvents: menuOpen ? "auto" : "none",
@@ -299,20 +313,22 @@ export default function BottomNav() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "0.926vw",
+                gap: isMobile ? "2vw" : "0.926vw",
                 height: "100%",
-                flexShrink: 0,
-                borderRadius: "0.5vw",
+                width: isMobile ? "48%" : undefined,
+                minWidth: isMobile ? "48%" : undefined,
+                flexShrink: isMobile ? 0 : undefined,
+                borderRadius: isMobile ? "2.564vw" : "0.5vw",
                 background: "rgba(201,201,201,0.051)",
-                padding: "0 0.926vw",
+                padding: isMobile ? "0 3vw" : "0 0.926vw",
                 cursor: "pointer",
                 listStyle: "none",
               }}
             >
               <div
                 style={{
-                  height: "0.529vw",
-                  width: "0.728vw",
+                  height: isMobile ? "1.5vw" : "0.529vw",
+                  width: isMobile ? "2vw" : "0.728vw",
                   flexShrink: 0,
                   display: "flex",
                   alignItems: "center",
@@ -327,8 +343,8 @@ export default function BottomNav() {
               <span>Menu</span>
             </li>
 
-            {/* Page-specific section links */}
-            {items.map((item, i) => (
+            {/* Page-specific section links — hidden on mobile */}
+            {!isMobile && items.map((item, i) => (
               <li
                 key={item.title}
                 onClick={() => {
@@ -384,33 +400,40 @@ export default function BottomNav() {
                 display: "flex",
                 alignItems: "center",
                 height: "100%",
-                flexShrink: 0,
-                paddingRight: "0.529vw",
+                width: isMobile ? "48%" : undefined,
+                minWidth: isMobile ? "48%" : undefined,
+                flexShrink: isMobile ? 0 : undefined,
+                paddingRight: isMobile ? 0 : "0.529vw",
+                justifyContent: isMobile ? "center" : undefined,
                 opacity: menuOpen ? 0 : 1,
                 pointerEvents: menuOpen ? "none" : "auto",
                 transition: "opacity 0.4s ease",
                 listStyle: "none",
+                borderRadius: isMobile ? "2.564vw" : undefined,
+                background: isMobile ? "rgba(201,201,201,0.051)" : undefined,
               }}
             >
-              <div
-                style={{
-                  height: 20,
-                  width: 1,
-                  background: "white",
-                  opacity: 0.2,
-                  marginLeft: "0.529vw",
-                  marginRight: "0.529vw",
-                  flexShrink: 0,
-                }}
-              />
+              {!isMobile && (
+                <div
+                  style={{
+                    height: 20,
+                    width: 1,
+                    background: "white",
+                    opacity: 0.2,
+                    marginLeft: "0.529vw",
+                    marginRight: "0.529vw",
+                    flexShrink: 0,
+                  }}
+                />
+              )}
               <button
                 onClick={() => setPlayerOpen((v) => !v)}
                 aria-label={playerOpen ? "Pause" : "Play"}
                 style={{
-                  width: "2.6vw",
-                  height: "2.6vw",
-                  minWidth: 32,
-                  minHeight: 32,
+                  width: isMobile ? "8vw" : "2.6vw",
+                  height: isMobile ? "8vw" : "2.6vw",
+                  minWidth: isMobile ? undefined : 32,
+                  minHeight: isMobile ? undefined : 32,
                   borderRadius: 9999,
                   background: "#fafafa",
                   color: "#0e0f0f",

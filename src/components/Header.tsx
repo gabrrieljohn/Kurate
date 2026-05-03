@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import BottomNav from "./BottomNav";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 export default function Header() {
+  const isMobile = useIsMobile();
+
   return (
     <>
       <header
@@ -14,7 +17,7 @@ export default function Header() {
           left: 0,
           right: 0,
           zIndex: 100,
-          padding: "1.6vw 2.4vw",
+          padding: isMobile ? "1.5vh 5.128vw 0" : "1.6vw 2.4vw",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -31,7 +34,12 @@ export default function Header() {
             src="/images/Preloader/logo-no-trademark.svg"
             alt="Kurate"
             className="reveal"
-            style={{ width: "5vw", minWidth: 60, display: "block" }}
+            style={{
+              height: isMobile ? "2.1vh" : undefined,
+              width: isMobile ? "17.692vw" : "5vw",
+              minWidth: isMobile ? undefined : 60,
+              display: "block",
+            }}
           />
         </Link>
       </header>

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import CrossBrackets from "@/components/CrossBrackets";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const TRACKS = [
   { title: "Idea 10", artists: ["Gibran Alcocer"], genre: ["Neoclassical", "Solo Piano"], img: "/images/Records/idea 10.jpg" },
@@ -93,6 +94,7 @@ function ArrowCircle({ animated }: { animated: boolean }) {
 }
 
 export default function Records() {
+  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLElement>(null);
   const [sectionAnimated, setSectionAnimated] = useState(false);
   const [scrollable, setScrollable] = useState(false);
@@ -152,6 +154,35 @@ export default function Records() {
           transition: rotate 0.4s ease;
           flex-shrink: 0;
           cursor: none;
+        }
+        @media (max-width: 768px) {
+          .records-arrow {
+            margin-left: auto;
+            margin-right: 20vw;
+            rotate: -90deg;
+            height: 15vw;
+            width: 15vw;
+          }
+          .track-row {
+            height: 80px;
+            min-height: 80px;
+            align-items: flex-start;
+            border: none;
+            padding: 4.615vw 4.103vw;
+          }
+          .track-row + .track-row {
+            border-top: 1px solid rgba(255,255,255,0.11);
+          }
+          .records-col-headers {
+            display: none;
+          }
+          .records-track-list {
+            height: 100%;
+            gap: 0;
+          }
+          .records-show-more .sm-text {
+            font-size: 3.59vw;
+          }
         }
         .records-arrow:hover {
           rotate: 180deg !important;
@@ -396,26 +427,31 @@ export default function Records() {
           style={{
             display: "flex",
             height: "100%",
-            gap: "7.275vw",
-            paddingTop: "4.96vw",
-            paddingBottom: "1.984vw",
+            gap: isMobile ? 0 : "7.275vw",
+            paddingTop: isMobile ? "8vh" : "4.96vw",
+            paddingBottom: isMobile ? "10vh" : "1.984vw",
+            flexDirection: isMobile ? "column-reverse" : undefined,
+            overflow: isMobile ? "hidden" : undefined,
+            position: isMobile ? "relative" : undefined,
           }}
         >
           {/* Left text column */}
           <div
             style={{
-              flex: 0.3,
-              height: "100%",
+              flex: isMobile ? "none" : 0.3,
+              height: isMobile ? "auto" : "100%",
               display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
+              flexDirection: isMobile ? "column-reverse" : "column",
+              justifyContent: isMobile ? "center" : "space-between",
+              alignItems: isMobile ? "center" : undefined,
+              gap: isMobile ? "5vw" : undefined,
             }}
           >
             {/* Group 1: 0-height; titleGroup absolutely positioned within */}
-            <div style={{ position: "relative" }}>
+            <div style={{ position: isMobile ? "absolute" : "relative", left: isMobile ? "5.128vw" : undefined, top: isMobile ? "8vh" : undefined }}>
               <div
                 style={{
-                  position: "absolute",
+                  position: isMobile ? "static" : "absolute",
                   left: 0,
                   top: 0,
                   textAlign: "left",
@@ -444,13 +480,13 @@ export default function Records() {
             </div>
 
             {/* Group 2: CrossBrackets + brand text — pushed to bottom by space-between */}
-            <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: "3.307vw" }}>
+            <div style={{ position: "relative", display: "flex", flexDirection: "column", gap: "3.307vw", alignItems: isMobile ? "center" : undefined, justifyContent: isMobile ? "center" : undefined, textAlign: isMobile ? "center" : undefined }}>
               <div
                 style={{
                   position: "absolute",
                   top: 0,
                   left: 0,
-                  transform: "translate(-35%, -80%)",
+                  transform: isMobile ? "translateX(0) translateY(-15%)" : "translate(-35%, -80%)",
                 }}
               >
                 <CrossBrackets />
@@ -469,11 +505,12 @@ export default function Records() {
           {/* Right column: records list (flex:0.7, height:90%) */}
           <div
             style={{
-              flex: 0.7,
-              height: "90%",
+              flex: isMobile ? "none" : 0.7,
+              height: isMobile ? "68.7vh" : "90%",
+              maxHeight: isMobile ? "68.7vh" : undefined,
               display: "flex",
               flexDirection: "column",
-              gap: "2.646vw",
+              gap: isMobile ? "4.7vh" : "2.646vw",
             }}
           >
             {/* Top row: "Our Records" heading + arrow circle */}
@@ -483,6 +520,7 @@ export default function Records() {
                 width: "100%",
                 alignItems: "flex-end",
                 justifyContent: "space-between",
+                flexDirection: isMobile ? "row-reverse" : undefined,
               }}
             >
               <div>
@@ -639,13 +677,13 @@ export default function Records() {
                     </button>
 
                     {/* Cover + title */}
-                    <div style={{ display: "flex", alignItems: "center", gap: "1.058vw", flex: 1.5, minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: isMobile ? "3.59vw" : "1.058vw", flex: 1.5, minWidth: 0 }}>
                       <div
                         style={{
-                          width: "3.307vw",
-                          height: "3.307vw",
-                          minWidth: 36,
-                          minHeight: 36,
+                          width: isMobile ? "11.538vw" : "3.307vw",
+                          height: isMobile ? "11.538vw" : "3.307vw",
+                          minWidth: isMobile ? undefined : 36,
+                          minHeight: isMobile ? undefined : 36,
                           borderRadius: "0.3vw",
                           overflow: "hidden",
                           background: "#1a1b1c",
@@ -654,24 +692,28 @@ export default function Records() {
                       >
                         <img src={t.img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                       </div>
-                      <span className="t-title" style={{ fontSize: "1.058vw", fontWeight: 500 }}>
+                      <span className="t-title" style={{ fontSize: isMobile ? "3.59vw" : "1.058vw", fontWeight: 500 }}>
                         {t.title}
                       </span>
                     </div>
 
-                    {/* Artists */}
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <span style={{ fontSize: "1.058vw", fontWeight: 500 }}>
-                        {t.artists.join(", ")}
-                      </span>
-                    </div>
+                    {/* Artists — hidden on mobile */}
+                    {!isMobile && (
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <span style={{ fontSize: "1.058vw", fontWeight: 500 }}>
+                          {t.artists.join(", ")}
+                        </span>
+                      </div>
+                    )}
 
-                    {/* Genre */}
-                    <div className="t-genre" style={{ flex: 1, minWidth: 0 }}>
-                      <span style={{ fontSize: "1.058vw", fontWeight: 500 }}>
-                        {t.genre.join(", ")}
-                      </span>
-                    </div>
+                    {/* Genre — hidden on mobile */}
+                    {!isMobile && (
+                      <div className="t-genre" style={{ flex: 1, minWidth: 0 }}>
+                        <span style={{ fontSize: "1.058vw", fontWeight: 500 }}>
+                          {t.genre.join(", ")}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

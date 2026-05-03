@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const ALL_ARTISTS = [
   {
@@ -89,6 +90,7 @@ const renderChars = (
   ));
 
 export default function Artists() {
+  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLElement>(null);
   const [sectionVisible, setSectionVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -152,15 +154,17 @@ export default function Artists() {
       <div
         style={{
           display: "flex",
-          height: "150vh",
-          minHeight: "150vh",
+          height: isMobile ? "fit-content" : "150vh",
+          minHeight: isMobile ? "unset" : "150vh",
           width: "100%",
           flexDirection: "column",
           gap: "3vh",
+          justifyContent: isMobile ? "space-between" : undefined,
+          paddingBottom: isMobile ? "10vh" : undefined,
         }}
       >
         {/* Header row */}
-        <div className="container" style={{ flex: 0.3, paddingTop: "4.96vw" }}>
+        <div className="container" style={{ flex: isMobile ? undefined : 0.3, paddingTop: isMobile ? "8vh" : "4.96vw", height: isMobile ? "fit-content" : undefined }}>
           <div
             style={{
               display: "flex",
@@ -241,8 +245,8 @@ export default function Artists() {
                 src="/images/Artists/soundWaves.svg"
                 alt=""
                 style={{
-                  height: "1.852vw",
-                  width: "2.116vw",
+                  height: isMobile ? "5.385vw" : "1.852vw",
+                  width: isMobile ? "6.154vw" : "2.116vw",
                   objectFit: "cover",
                   opacity: sectionVisible ? 1 : 0,
                   transform: sectionVisible ? "translateY(0)" : "translateY(100%)",
@@ -329,7 +333,7 @@ export default function Artists() {
         <div
           ref={containerRef}
           style={{
-            flex: 0.7,
+            flex: isMobile ? "1 1 0%" : 0.7,
             overflow: "hidden",
             display: "flex",
             width: "100%",
@@ -394,7 +398,7 @@ export default function Artists() {
                 >
                   <sup
                     style={{
-                      fontSize: "1.058vw",
+                      fontSize: isMobile ? "3.077vw" : "1.058vw",
                       fontWeight: 400,
                       opacity: 0.4,
                       verticalAlign: "top",
@@ -405,7 +409,7 @@ export default function Artists() {
                   </sup>
                   <h6
                     style={{
-                      fontSize: "2.91vw",
+                      fontSize: isMobile ? "6.154vw" : "2.91vw",
                       color: "#fff",
                       margin: 0,
                       fontWeight: 400,
@@ -421,7 +425,7 @@ export default function Artists() {
               const bioBlock = (
                 <p
                   style={{
-                    fontSize: "1.058vw",
+                    fontSize: isMobile ? "3.077vw" : "1.058vw",
                     opacity: 0.6,
                     lineHeight: "148%",
                     margin: 0,
@@ -439,7 +443,8 @@ export default function Artists() {
                   className="artist-card"
                   style={{
                     flexShrink: 0,
-                    width: "calc(100vw / 3)",
+                    width: isMobile ? undefined : "calc(100vw / 3)",
+                    minWidth: isMobile ? "77vw" : undefined,
                     height: "100%",
                     border: "1px solid rgba(255,255,255,0.3)",
                     borderLeft: a.no > 1 ? "none" : undefined,
@@ -452,8 +457,8 @@ export default function Artists() {
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "space-between",
-                      gap: "1.984vw",
-                      padding: "3.307vw 2.315vw",
+                      gap: isMobile ? "2vh" : "1.984vw",
+                      padding: isMobile ? "6.667vw 5.128vw" : "3.307vw 2.315vw",
                       height: "100%",
                       boxSizing: "border-box",
                       opacity: sectionVisible ? 1 : 0,

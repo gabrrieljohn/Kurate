@@ -1,5 +1,7 @@
 "use client";
 
+import { useIsMobile } from "@/hooks/useIsMobile";
+
 const OUTER_RING =
   "M6.67578 95.6708C6.67578 46.5199 46.5204 6.67529 95.6713 6.67529V6.67529C144.822 6.67529 184.667 46.5199 184.667 95.6708V95.6708C184.667 144.822 144.822 184.666 95.6713 184.666V184.666C46.5204 184.666 6.67578 144.822 6.67578 95.6708V95.6708Z";
 
@@ -20,13 +22,15 @@ const FONT_PROPS = {
 const LABEL = "SCROLL TO EXPLORE";
 
 export default function ScrollToExplore() {
+  const isMobile = useIsMobile();
+
   return (
     <div
       aria-hidden
       style={{
         position: "relative",
-        width: "12.566vw",
-        height: "12.566vw",
+        width: isMobile ? "39.231vw" : "12.566vw",
+        height: isMobile ? "39.231vw" : "12.566vw",
       }}
     >
       <svg
@@ -85,8 +89,8 @@ export default function ScrollToExplore() {
           position: "absolute",
           top: "50%",
           left: "50%",
-          height: "2.116vw",
-          width: "0.893vw",
+          height: isMobile ? "6.667vw" : "2.116vw",
+          width: isMobile ? "2.821vw" : "0.893vw",
           transform: "translate(-50%, -50%)",
           pointerEvents: "none",
         }}

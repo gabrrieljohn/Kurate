@@ -122,6 +122,8 @@ big { font-size: 13.228vw; letter-spacing: -4px; line-height: 0.84; }
   h1 { font-size: 16.41vw !important; }
   h3 { font-size: 9.231vw !important; }
   section { overflow: hidden; }
+  .container { padding: 0 5.128vw !important; }
+  html, body, * { cursor: auto !important; }
 }
 
 p { line-height: 1.2; margin: 0; }
@@ -197,7 +199,7 @@ div.animated .brand-text > div {
 }
 
 @media (max-width: 768px) {
-  .section-span { font-size: 4vw; }
+  .section-span { font-size: 5.128vw; }
 }
 
 html, body, * { cursor: none !important; }

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const underlineSpan = (active: boolean) => (
   <span
@@ -21,6 +22,7 @@ const underlineSpan = (active: boolean) => (
 );
 
 export default function Footer() {
+  const isMobile = useIsMobile();
   const [hovered, setHovered] = useState<string | null>(null);
   const [visible, setVisible] = useState(false);
   const footerRef = useRef<HTMLElement>(null);
@@ -53,25 +55,26 @@ export default function Footer() {
       className={visible ? "animated" : ""}
       style={{ height: "fit-content", position: "relative" }}
     >
-      <div style={{ display: "flex", borderTop: "1px solid rgba(252,252,252,0.25)" }}>
+      <div style={{ display: "flex", flexDirection: isMobile ? "column-reverse" : undefined, borderTop: "1px solid rgba(252,252,252,0.25)" }}>
         {/* Left section — logo + tagline */}
         <div
           style={{
-            flex: "0 0 40%",
-            padding: "5.291vw 10.582vw 10.913vw",
-            borderRight: "1px solid rgba(252,252,252,0.25)",
+            flex: isMobile ? undefined : "0 0 40%",
+            padding: isMobile ? "6.3vh 5.128vw 25vh" : "5.291vw 10.582vw 10.913vw",
+            borderRight: isMobile ? undefined : "1px solid rgba(252,252,252,0.25)",
+            borderTop: isMobile ? "1px solid rgba(252,252,252,0.25)" : undefined,
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: "2.315vw" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? "3.3vh" : "2.315vw", alignItems: isMobile ? "center" : undefined, justifyContent: isMobile ? "center" : undefined }}>
             <img
               src="/images/Preloader/logo-no-trademark.svg"
               alt="Kurate"
               className="reveal"
-              style={{ height: "5.622vw", width: "100%", ...d(0) }}
+              style={{ height: isMobile ? "5vh" : "5.622vw", minHeight: isMobile ? "5vh" : undefined, width: isMobile ? "38.462vw" : "100%", minWidth: isMobile ? "38.462vw" : undefined, ...d(0) }}
             />
             <div
               className="reveal"
-              style={{ display: "flex", alignItems: "center", gap: "1.157vw", opacity: 0.4, ...d(0.1) }}
+              style={{ display: "flex", alignItems: "center", gap: isMobile ? "2.564vw" : "1.157vw", opacity: 0.4, ...d(0.1) }}
             >
               <span
                 style={{
@@ -91,18 +94,20 @@ export default function Footer() {
         <div
           style={{
             flex: 1,
-            padding: "2.646vw 3.968vw 9.259vw",
+            padding: isMobile ? "7.7vh 5.128vw" : "2.646vw 3.968vw 9.259vw",
             display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-            gap: "16vw",
+            alignItems: isMobile ? "center" : "flex-start",
+            justifyContent: isMobile ? "center" : "flex-start",
+            flexWrap: isMobile ? "wrap" : undefined,
+            rowGap: isMobile ? "6vh" : undefined,
+            gap: isMobile ? "12vw" : "16vw",
           }}
         >
           {/* Explore column */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.852vw" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1.852vw", alignItems: isMobile ? "center" : undefined }}>
             <span
               className="reveal"
-              style={{ color: "#979797", fontWeight: 500, fontSize: "0.95vw", ...d(0.2) }}
+              style={{ color: "#979797", fontWeight: 500, fontSize: isMobile ? "3.077vw" : "0.95vw", ...d(0.2) }}
             >
               Explore
             </span>
@@ -113,7 +118,7 @@ export default function Footer() {
                 margin: 0,
                 display: "flex",
                 flexDirection: "column",
-                gap: "1.587vw",
+                gap: isMobile ? "1vh" : "1.587vw",
               }}
             >
               {[
@@ -121,7 +126,7 @@ export default function Footer() {
                 { to: "/artists", label: "Artists" },
                 { to: "/careers", label: "Careers" },
               ].map((l, i) => (
-                <li key={l.to}>
+                <li key={l.to} style={{ width: isMobile ? "100%" : undefined, textAlign: isMobile ? "center" : undefined }}>
                   <Link
                     href={l.to}
                     className="reveal"
@@ -129,8 +134,8 @@ export default function Footer() {
                     onMouseLeave={() => setHovered(null)}
                     style={{
                       position: "relative",
-                      display: "inline-block",
-                      fontSize: "1.587vw",
+                      display: isMobile ? "block" : "inline-block",
+                      fontSize: isMobile ? "6.154vw" : "1.587vw",
                       color: "#fafafa",
                       lineHeight: "180%",
                       letterSpacing: "-0.48px",
@@ -138,7 +143,7 @@ export default function Footer() {
                     }}
                   >
                     {l.label}
-                    {underlineSpan(hovered === l.label)}
+                    {!isMobile && underlineSpan(hovered === l.label)}
                   </Link>
                 </li>
               ))}
@@ -147,15 +152,15 @@ export default function Footer() {
               src="/images/Preloader/logo-no-trademark.svg"
               alt=""
               className="reveal"
-              style={{ height: "5vh", width: "8vw", marginTop: "1vw", ...d(0.55) }}
+              style={{ height: isMobile ? "3vh" : "5vh", width: isMobile ? "18vw" : "8vw", margin: isMobile ? "auto" : undefined, marginTop: "1vw", ...d(0.55) }}
             />
           </div>
 
           {/* Follow column */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.852vw" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1.852vw", alignItems: isMobile ? "center" : undefined }}>
             <span
               className="reveal"
-              style={{ color: "#979797", fontWeight: 500, fontSize: "0.95vw", ...d(0.2) }}
+              style={{ color: "#979797", fontWeight: 500, fontSize: isMobile ? "3.077vw" : "0.95vw", ...d(0.2) }}
             >
               Follow
             </span>
@@ -166,7 +171,7 @@ export default function Footer() {
                 margin: 0,
                 display: "flex",
                 flexDirection: "column",
-                gap: "1.587vw",
+                gap: isMobile ? "1vh" : "1.587vw",
               }}
             >
               {[
@@ -174,7 +179,7 @@ export default function Footer() {
                 { href: "https://www.instagram.com/kuratemusic/", label: "Instagram" },
                 { href: "https://www.facebook.com/kuratemusic", label: "Facebook" },
               ].map((l, i) => (
-                <li key={l.label}>
+                <li key={l.label} style={{ width: isMobile ? "100%" : undefined, textAlign: isMobile ? "center" : undefined }}>
                   <a
                     href={l.href}
                     target="_blank"
@@ -184,8 +189,8 @@ export default function Footer() {
                     onMouseLeave={() => setHovered(null)}
                     style={{
                       position: "relative",
-                      display: "inline-block",
-                      fontSize: "1.587vw",
+                      display: isMobile ? "block" : "inline-block",
+                      fontSize: isMobile ? "6.154vw" : "1.587vw",
                       color: "#fafafa",
                       lineHeight: "180%",
                       letterSpacing: "-0.48px",
@@ -193,7 +198,7 @@ export default function Footer() {
                     }}
                   >
                     {l.label}
-                    {underlineSpan(hovered === l.label)}
+                    {!isMobile && underlineSpan(hovered === l.label)}
                   </a>
                 </li>
               ))}

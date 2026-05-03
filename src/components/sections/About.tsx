@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import CrossBrackets from "@/components/CrossBrackets";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const DYNAMIC_DELAYS = [0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.85];
 
@@ -24,7 +25,7 @@ const BAR_CONFIG = [
   { anim: 2, dur: 1.8, delay: 0.8   },
 ];
 
-function Spectrograph({ visible }: { visible: boolean }) {
+function Spectrograph({ visible, isMobile }: { visible: boolean; isMobile: boolean }) {
   return (
     <span
       aria-hidden
@@ -33,9 +34,9 @@ function Spectrograph({ visible }: { visible: boolean }) {
         alignItems: "flex-end",
         justifyContent: "center",
         gap: "1px",
-        height: "4.63vw",
-        width: "9.921vw",
-        borderRadius: "9999px",
+        height: isMobile ? "9.231vw" : "4.63vw",
+        width: isMobile ? "20vw" : "9.921vw",
+        borderRadius: isMobile ? "22.308vw" : "9999px",
         padding: "0 1vw",
         verticalAlign: "middle",
         margin: "0 1.323vw",
@@ -82,9 +83,9 @@ function Spectrograph({ visible }: { visible: boolean }) {
           <span
             key={i}
             style={{
-              flex: "0 0 8px",
+              flex: isMobile ? "0 0 2px" : "0 0 8px",
               background: "#fafafa",
-              borderRadius: "6px",
+              borderRadius: isMobile ? "1px" : "6px",
               height: "50%",
               transformOrigin: "center bottom",
               transform: "translateY(100%)",
@@ -115,6 +116,7 @@ const h3Delay = (i: number): React.CSSProperties => ({
 });
 
 export default function About() {
+  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLElement>(null);
   const [sectionVisible, setSectionVisible] = useState(false);
 
@@ -178,7 +180,7 @@ export default function About() {
             style={{ ...h3Delay(1), display: "flex", alignItems: "center", justifyContent: "center" }}
           >
             captivating global
-            <Spectrograph visible={sectionVisible} />
+            <Spectrograph visible={sectionVisible} isMobile={isMobile} />
             audiences,
           </h3>
 
@@ -231,7 +233,7 @@ export default function About() {
             display: "flex",
             width: "fit-content",
             alignItems: "flex-start",
-            gap: "4.299vw",
+            gap: isMobile ? "10.256vw" : "4.299vw",
           }}
         >
           <div
@@ -239,7 +241,7 @@ export default function About() {
               position: "absolute",
               top: 0,
               left: 0,
-              transform: "translate(-80%, -40%)",
+              transform: isMobile ? "translateX(-150%) translateY(-15%)" : "translate(-80%, -40%)",
             }}
           >
             <CrossBrackets />

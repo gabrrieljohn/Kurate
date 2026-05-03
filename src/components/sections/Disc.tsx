@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 /* ── crescent SVG path (same as original: viewBox 132×263) ── */
 const CRESCENT_D =
@@ -29,6 +30,7 @@ const IMG_FILL: React.CSSProperties = {
 };
 
 export default function Disc() {
+  const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
   const [deployed, setDeployed] = useState(false);
 
@@ -54,9 +56,10 @@ export default function Disc() {
     <div
       ref={containerRef}
       style={{
-        width: "100%",
-        height: "17.196vw",
-        padding: "9.259vw 0",
+        width: isMobile ? "87.692vw" : "100%",
+        margin: isMobile ? "auto" : undefined,
+        height: isMobile ? "24vw" : "17.196vw",
+        padding: isMobile ? "0" : "9.259vw 0",
         position: "relative",
         display: "flex",
         alignItems: "center",
@@ -69,8 +72,8 @@ export default function Disc() {
         style={{
           ...PIECE_BASE,
           translate: "-50% 0",
-          width: "17.196vw",
-          height: "17.196vw",
+          width: isMobile ? "23.077vw" : "17.196vw",
+          height: isMobile ? "23.077vw" : "17.196vw",
           zIndex: 3,
         }}
       >
@@ -124,8 +127,8 @@ export default function Disc() {
       <div
         style={{
           ...PIECE_BASE,
-          width: "8.598vw",
-          height: "17.196vw",
+          width: isMobile ? "11.538vw" : "8.598vw",
+          height: isMobile ? "23.077vw" : "17.196vw",
           zIndex: 2,
           opacity: deployed ? 1 : 0,
           translate: deployed ? "-250% 0" : "-50% 0",
@@ -138,8 +141,8 @@ export default function Disc() {
       <div
         style={{
           ...PIECE_BASE,
-          width: "8.598vw",
-          height: "17.196vw",
+          width: isMobile ? "11.538vw" : "8.598vw",
+          height: isMobile ? "23.077vw" : "17.196vw",
           zIndex: 2,
           opacity: deployed ? 1 : 0,
           translate: deployed ? "150% 0" : "-50% 0",
@@ -153,8 +156,8 @@ export default function Disc() {
       <div
         style={{
           ...PIECE_BASE,
-          width: "8.598vw",
-          height: "17.196vw",
+          width: isMobile ? "11.538vw" : "8.598vw",
+          height: isMobile ? "23.077vw" : "17.196vw",
           zIndex: 1,
           opacity: deployed ? 1 : 0,
           translate: deployed ? "-400% 0" : "-50% 0",
@@ -178,8 +181,8 @@ export default function Disc() {
       <div
         style={{
           ...PIECE_BASE,
-          width: "8.598vw",
-          height: "17.196vw",
+          width: isMobile ? "11.538vw" : "8.598vw",
+          height: isMobile ? "23.077vw" : "17.196vw",
           zIndex: 1,
           opacity: deployed ? 1 : 0,
           translate: deployed ? "300% 0" : "-50% 0",

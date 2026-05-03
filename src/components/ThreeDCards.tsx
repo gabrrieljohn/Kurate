@@ -2,11 +2,13 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import ScrollToExplore from "@/components/ScrollToExplore";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const HERO_SCRIBBLE_D =
   "M2.69582 130.546C1.36584 130.546 2.20758 130.45 3.02641 129.888C10.4343 124.797 17.5774 119.412 25.1761 114.569C75.9755 82.1899 133.571 57.3954 189.398 35.0939C219.856 22.9265 249.706 12.0494 281.468 4.53914C290.818 2.32826 303.397 -2.26048 295.518 11.5396C274.87 47.7026 235.577 77.0991 203.035 101.968C176.929 121.919 148.922 139.556 122.04 158.466C111.922 165.582 101.857 172.503 92.121 180.126C90.5713 181.339 87.3987 183.914 91.2119 183.914C96.6337 183.914 104.189 178.602 108.981 176.173C115.874 172.678 124.291 168.525 129.974 163.16C134.036 159.325 125.448 164.972 124.684 165.631C114.42 174.482 106.339 187.914 101.212 200.221C96.4585 211.633 86.7715 238.553 105.345 241.4C111.04 242.273 117.447 242.016 123.197 241.729C125.2 241.63 128.88 240.247 124.684 240.247";
 
 export default function ThreeDCards() {
+  const isMobile = useIsMobile();
   const movementCardRef = useRef<HTMLDivElement>(null);
   const heroLineRef = useRef<HTMLDivElement>(null);
 
@@ -51,8 +53,12 @@ export default function ThreeDCards() {
   const backCardStyle = (which: 1 | 2): React.CSSProperties => {
     const baseTranslate = "translate(-50%, 0)";
     const initRotate = which === 1 ? "rotate(-6.15deg)" : "rotate(6.15deg)";
-    const hoverTranslate = which === 1 ? "translate(0%, 0)" : "translate(-100%, 0)";
-    const hoverRotate = which === 1 ? "rotate(6deg)" : "rotate(-6deg)";
+    const hoverTranslate = isMobile
+      ? "translate(-50%, 0)"
+      : which === 1 ? "translate(0%, 0)" : "translate(-100%, 0)";
+    const hoverRotate = isMobile
+      ? which === 1 ? "translateX(10%)" : "translateX(-10%)"
+      : which === 1 ? "rotate(6deg)" : "rotate(-6deg)";
 
     return {
       position: "absolute",
@@ -60,13 +66,13 @@ export default function ThreeDCards() {
       top: 0,
       height: "100%",
       width: "auto",
-      maxWidth: "33vw",
+      maxWidth: isMobile ? "100%" : "33vw",
       objectFit: "cover",
       objectPosition: "center",
       transform: cardLoaded
         ? isHovered
-          ? `${hoverTranslate} ${hoverRotate}`
-          : `${baseTranslate} ${initRotate}`
+          ? isMobile ? `translate(-50%, 0) ${hoverRotate}` : `${hoverTranslate} ${hoverRotate}`
+          : `${baseTranslate} ${isMobile ? "" : initRotate}`
         : baseTranslate,
       transition: "transform 1s ease",
       borderRadius: "0.4vw",
@@ -89,10 +95,10 @@ export default function ThreeDCards() {
       style={{
         position: "absolute",
         left: "50%",
-        top: "100vh",
-        height: "85vh",
-        width: "50vw",
-        transform: "translate(-50%, -42.5%)",
+        top: isMobile ? "66.2322vh" : "100vh",
+        height: isMobile ? "44.0758vh" : "85vh",
+        width: isMobile ? "73.333vw" : "50vw",
+        transform: isMobile ? "translateX(-50%)" : "translate(-50%, -42.5%)",
         zIndex: 3,
       }}
       onMouseMove={handleMouseMove}
@@ -118,7 +124,7 @@ export default function ThreeDCards() {
               margin: "auto",
               height: "100%",
               width: "auto",
-              maxWidth: "33vw",
+              maxWidth: isMobile ? "100%" : "33vw",
               objectFit: "cover",
               objectPosition: "center",
               borderRadius: "0.4vw",
@@ -136,7 +142,7 @@ export default function ThreeDCards() {
           margin: "auto",
           height: "100%",
           width: "100%",
-          maxWidth: "33vw",
+          maxWidth: isMobile ? "100%" : "33vw",
         }}
       >
         {/* Dynamic Record Label */}
@@ -147,7 +153,7 @@ export default function ThreeDCards() {
             left: 0,
             zIndex: -1,
             transform: "translateY(-300%)",
-            fontSize: "1.455vw",
+            fontSize: isMobile ? "4.103vw" : "1.455vw",
             lineHeight: "84%",
             fontWeight: 400,
             margin: 0,
@@ -175,9 +181,9 @@ export default function ThreeDCards() {
             position: "absolute",
             right: 0,
             bottom: 0,
-            width: "295px",
-            height: "240px",
-            transform: "translateX(50%)",
+            width: isMobile ? "44.359vw" : "295px",
+            height: isMobile ? "35.897vw" : "240px",
+            transform: isMobile ? "translateX(0)" : "translateX(50%)",
             zIndex: 5,
             pointerEvents: "none",
           }}
@@ -202,7 +208,7 @@ export default function ThreeDCards() {
             left: 0,
             top: 0,
             zIndex: 5,
-            transform: "translate(-50%, 25%)",
+            transform: isMobile ? "translateX(-25%)" : "translate(-50%, 25%)",
             pointerEvents: "auto",
             opacity: cardLoaded ? 1 : 0,
             transition: "opacity 1s ease 0.5s",

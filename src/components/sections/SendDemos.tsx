@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 type Step = 1 | 2 | 3 | 4;
 
@@ -86,6 +87,7 @@ function WireBackground() {
 }
 
 export default function SendDemos() {
+  const isMobile = useIsMobile();
   const [step, setStep] = useState<Step>(1);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -136,6 +138,7 @@ export default function SendDemos() {
       style={{
         position: "relative",
         minHeight: "100vh",
+        height: isMobile ? "fit-content" : undefined,
         overflow: "hidden",
         background: "linear-gradient(to bottom, transparent 0%, #0e0f0f 12%) #0e0f0f",
       }}
@@ -181,11 +184,12 @@ export default function SendDemos() {
       <div
         style={{
           display: "flex",
-          height: "100vh",
+          height: isMobile ? "fit-content" : "100vh",
           width: "100%",
           alignItems: "center",
           justifyContent: "center",
-          paddingTop: "18vh",
+          paddingTop: isMobile ? "14vh" : "18vh",
+          paddingBottom: isMobile ? "14vh" : undefined,
           position: "relative",
           zIndex: 1,
         }}

@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const SCRIBBLE_D =
   "M2 19.3123C63.7255 19.3123 125.55 13.9353 186.907 13.9353C201.249 13.9353 199.943 3.66424 186.907 3.18145C166.129 2.41188 139.648 -0.462263 120.293 7.0648C116.022 8.72585 33.5983 27.4268 66.5234 46.7945C74.0917 51.2464 87.0611 62.3279 96.0966 62.3279C100.354 62.3279 79.5924 54.2624 73.2445 54.2624C63.6952 54.2624 53.8413 59.6505 65.3285 69.049C88.2425 87.7969 105.24 110 121.338 134.767C131.569 150.506 138.634 175.038 136.274 193.914C135.268 201.962 123.342 209.961 117.455 214.376C105.449 223.381 93.8389 235.154 83.2516 245.741C48.3967 280.596 27.7675 323.169 34.411 372.996C35.2306 379.143 36.3731 385.227 37.6155 391.291C42.9319 417.241 64.336 438.493 76.5455 462V462";
 
 export default function PreAbout() {
+  const isMobile = useIsMobile();
   const sectionRef = useRef<HTMLElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
   const [textVisible, setTextVisible] = useState(false);
@@ -88,9 +90,9 @@ export default function PreAbout() {
       <div
         style={{
           position: "absolute",
-          top: "60vh",
+          top: isMobile ? "50%" : "60vh",
           left: "50%",
-          transform: "translateX(-50%)",
+          transform: isMobile ? "translate(-50%, -50%)" : "translateX(-50%)",
           width: "100%",
           maxWidth: "100%",
           display: "flex",
@@ -103,7 +105,7 @@ export default function PreAbout() {
         <div
           style={{
             textTransform: "uppercase",
-            fontSize: "1.19vw",
+            fontSize: isMobile ? "4.103vw" : "1.19vw",
             lineHeight: 1.6,
             position: "relative",
             color: "#fff",
@@ -130,7 +132,8 @@ export default function PreAbout() {
               position: "absolute",
               left: "50%",
               bottom: 0,
-              height: "40vh",
+              height: isMobile ? "40.9953vh" : "40vh",
+              width: isMobile ? "37.692vw" : undefined,
               transform: "translate(-50%, 110%)",
               pointerEvents: "none",
               zIndex: 3,
