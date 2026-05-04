@@ -337,7 +337,7 @@ export default function Artists() {
           ref={containerRef}
           style={{
             flex: isMobile ? "none" : 0.7,
-            height: isMobile ? "44vh" : undefined,
+            height: isMobile ? "47vh" : undefined,
             overflow: "hidden",
             display: "flex",
             width: "100%",
