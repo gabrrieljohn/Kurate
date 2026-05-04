@@ -184,7 +184,7 @@ export default function Artists() {
                   position: "absolute",
                   left: 0,
                   bottom: 0,
-                  fontSize: isMobile ? undefined : "1.323vw",
+                  fontSize: isMobile ? "3.077vw" : "1.323vw",
                   lineHeight: "150%",
                 }}
               >
@@ -336,7 +336,7 @@ export default function Artists() {
           ref={containerRef}
           style={{
             flex: isMobile ? "none" : 0.7,
-            height: isMobile ? "70vh" : undefined,
+            height: isMobile ? "44vh" : undefined,
             overflow: "hidden",
             display: "flex",
             width: "100%",
@@ -363,11 +363,10 @@ export default function Artists() {
               const imgBlock = (
                 <div
                   style={{
-                    position: "relative",
-                    width: "100%",
-                    paddingTop: "105%",
+                    flex: 1,
                     overflow: "hidden",
-                    flexShrink: 0,
+                    position: "relative",
+                    minHeight: 0,
                   }}
                 >
                   <img
@@ -460,8 +459,8 @@ export default function Artists() {
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      justifyContent: "space-between",
-                      gap: isMobile ? "2vh" : "1.984vw",
+                      justifyContent: "flex-start",
+                      gap: isMobile ? "3vw" : "1.984vw",
                       padding: isMobile ? "6.667vw 5.128vw" : "3.307vw 2.315vw",
                       height: "100%",
                       boxSizing: "border-box",
