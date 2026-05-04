@@ -161,6 +161,7 @@ export default function Artists() {
           gap: "3vh",
           justifyContent: isMobile ? "space-between" : undefined,
           paddingBottom: isMobile ? "10vh" : undefined,
+          paddingTop: isMobile ? "4vh" : undefined,
         }}
       >
         {/* Header row */}
@@ -446,7 +447,7 @@ export default function Artists() {
                   className="artist-card"
                   style={{
                     flexShrink: 0,
-                    width: isMobile ? undefined : "calc(100vw / 3)",
+                    width: isMobile ? "77vw" : "calc(100vw / 3)",
                     minWidth: isMobile ? "77vw" : undefined,
                     height: "100%",
                     border: "1px solid rgba(255,255,255,0.3)",
